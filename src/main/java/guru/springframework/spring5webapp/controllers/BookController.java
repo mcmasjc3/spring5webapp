@@ -22,10 +22,4 @@ public class BookController {
     model.addAttribute("books", bookRepository.findAll());
     return "books/list";
   }
-
-  @RequestMapping("/authors")
-  public String getAuthors(Model model) {
-    model.addAttribute("authors", authorRepository.findAll());
-    return "authors/list";
-  }
 }
