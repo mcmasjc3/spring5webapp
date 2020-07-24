@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -26,6 +28,9 @@ public class Book {
       joinColumns = @JoinColumn(name = "book_id"),
       inverseJoinColumns = @JoinColumn(name = "author_id"))
   private Set<Author> authors = new HashSet<>();
+
+  @ManyToOne
+  private Publisher publisher;
 
   public Book() {}
 
@@ -66,14 +71,28 @@ public class Book {
     this.authors = authors;
   }
 
+  public Publisher getPublisher() {
+    return publisher;
+  }
+
+  public void setPublisher(Publisher publisher) {
+    this.publisher = publisher;
+  }
+
   @Override
   public String toString() {
-    return "Book{" +
-            "id=" + id +
-            ", title='" + title + '\'' +
-            ", isbn='" + isbn + '\'' +
-            ", authors=" + authors +
-            '}';
+    return "Book{"
+        + "id="
+        + id
+        + ", title='"
+        + title
+        + '\''
+        + ", isbn='"
+        + isbn
+        + '\''
+        + ", authors="
+        + authors
+        + '}';
   }
 
   @Override
@@ -83,7 +102,7 @@ public class Book {
 
     Book book = (Book) o;
 
-    return id != null ? id.equals(book.id) : book.id == null;
+    return Objects.equals(id, book.id);
   }
 
   @Override
